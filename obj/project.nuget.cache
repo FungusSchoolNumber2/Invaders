@@ -1,8 +1,15 @@
 {
   "version": 2,
-  "dgSpecHash": "JtuuvpZ2FRF2IGr+HATWpkdxy9NkHzWXlF7V30PmCKfQfXEv4V3U6/IRuWPHPLsD+A1yeDcQJFeFhiQJhfjQiA==",
+  "dgSpecHash": "z8sP4HJoQ+pM0zXkHZJB7/2qucBNf9y8TRhcjknWWPumCvi7Je2R9bg+V4esOodilj0AEYkyXbG9tbvpnFAC7w==",
   "success": true,
   "projectFilePath": "C:\\Users\\d23linst\\RiderProjects\\Invaders\\Invaders.csproj",
-  "expectedPackageFiles": [],
+  "expectedPackageFiles": [
+    "C:\\Users\\d23linst\\.nuget\\packages\\csfml\\2.5.0\\csfml.2.5.0.nupkg.sha512",
+    "C:\\Users\\d23linst\\.nuget\\packages\\sfml.audio\\2.5.0\\sfml.audio.2.5.0.nupkg.sha512",
+    "C:\\Users\\d23linst\\.nuget\\packages\\sfml.graphics\\2.5.0\\sfml.graphics.2.5.0.nupkg.sha512",
+    "C:\\Users\\d23linst\\.nuget\\packages\\sfml.net\\2.5.0\\sfml.net.2.5.0.nupkg.sha512",
+    "C:\\Users\\d23linst\\.nuget\\packages\\sfml.system\\2.5.0\\sfml.system.2.5.0.nupkg.sha512",
+    "C:\\Users\\d23linst\\.nuget\\packages\\sfml.window\\2.5.0\\sfml.window.2.5.0.nupkg.sha512"
+  ],
   "logs": []
 }
