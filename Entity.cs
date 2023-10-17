@@ -6,6 +6,7 @@ namespace Invaders;
 public class Entity
 {
     public Vector2f Direction = new Vector2f();
+    protected float speed;
     protected Sprite sprite;
     private string textureName;
 
@@ -13,6 +14,7 @@ public class Entity
     {
         sprite = new Sprite();
         this.textureName = textureName;
+        sprite.Texture = Scene.Assets.LoadTexture(textureName);
     }
     
     public Vector2f Position
@@ -23,7 +25,14 @@ public class Entity
 
     public FloatRect Bounds => sprite.GetGlobalBounds();
 
-    public virtual void Update(float deltaTime){}
-    public void Render(RenderTarget target){}
+    public virtual void Update(float deltaTime)
+    {
+        sprite.Position += Direction * speed * deltaTime;
+    }
+
+    public void Render(RenderTarget target)
+    {
+        target.Draw(sprite);
+    }
 
 }

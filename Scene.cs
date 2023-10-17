@@ -4,8 +4,16 @@ namespace Invaders;
 
 public class Scene
 {
+  public static AssetsManager Assets = new AssetsManager();
   private List<Entity> entities = new List<Entity>();
 
+  public Scene()
+  {
+    Player player = new Player();
+    Enemy enemy = new Enemy();
+    entities.Add(player);
+    entities.Add(enemy);
+  }
 
   public void UpdateAll(float deltaTime)
   {
