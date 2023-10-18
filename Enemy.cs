@@ -5,21 +5,25 @@ namespace Invaders;
 public class Enemy : Entity
 {
     private Vector2f Size = new Vector2f(126, 108);
+    private float timer;
     public Enemy() : base("spaceShips_004")
     {
         sprite.Rotation = -45;
         sprite.Position = new Vector2f(300, 0);
         sprite.Scale *= 0.75f;
-        sprite.Origin = Program.multiply(new Vector2f(63, 54), sprite.Scale);
+        sprite.Origin = new Vector2f(63, 54);
+        //sprite.Origin = Program.multiply(new Vector2f(63, 54), sprite.Scale);
         Size = Program.multiply(Size, sprite.Scale);
         speed = 200;
         Direction = new Vector2f(1, 1);
+        timer = 2;
     }
 
-    public override void Update(float deltaTime)
+    public override void Update(float deltaTime, Scene scene)
     {
         WallCheck();
-        base.Update(deltaTime);
+        base.Update(deltaTime, scene);
+        firing(deltaTime);
     }
 
     public override void Render(RenderTarget target)
@@ -29,9 +33,24 @@ public class Enemy : Entity
         base.Render(target);
     }
 
+    public void KillShip()
+    {
+        Scene.Events.PublishTimeToBlow(Position);
+        Dead = true;
+    }
+
+    protected override void CollideWith(Scene scene, Entity entity)
+    {
+        if (entity is Player player && !player.Invincible)
+        {
+            Scene.Events.PublishPlayerHit();
+            KillShip();
+        }
+    }
+
     private void WallCheck()
     {
-        if (Position.X >= Program.windowW - 62.25f)
+        if (Position.X >= Program.windowW - 62.25f + 15)
         {
             Position = new Vector2f(Position.X - 5, Position.Y); 
             Direction.X *= -1;
@@ -40,6 +59,20 @@ public class Enemy : Entity
         {
             Position = new Vector2f(Position.X + 5, Position.Y);
             Direction.X *= -1;
+        }
+
+        if (Position.Y > Program.windowH + 50) Position = new Vector2f(Position.X, -100);
+    }
+
+    private void firing(float deltaTime)
+    {
+        timer -= deltaTime;
+
+        if (timer <= 0)
+        {
+            int temp = new Random().Next(2);
+            if (temp == 1) Scene.Events.PublishShot(Direction, Position , false);
+            timer = 1;
         }
     }
 }

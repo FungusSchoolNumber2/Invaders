@@ -1,4 +1,5 @@
-﻿using SFML.System;
+﻿using SFML.Graphics;
+using SFML.System;
 using SFML.Window;
 
 namespace Invaders;
@@ -7,41 +8,56 @@ public class Player : Entity
 {
     private bool keyPressed;
     private int shots;
+    private float invincibleTimer ;
+
     public Player() : base("spaceShips_001")
     {
         sprite.Rotation = 180;
         sprite.Origin = new Vector2f(53, 40);
         speed = 400;
         Position = new Vector2f(Program.windowW / 2, Program.windowH - 100);
+        Scene.Events.PlayerHit += OnPlayerHit;
     }
 
-    public override void Update(float deltaTime)
+    public bool Invincible
     {
+        get;
+        private set;
+    }
+
+    public override void Update(float deltaTime, Scene scene)
+    {
+        if (invincibleTimer > 0)
+        {
+            Invincible = true;
+            sprite.Color = new Color(255, 255, 255, 150);
+            invincibleTimer -= deltaTime;
+        }
+        else
+        {
+            Invincible = false;
+            sprite.Color = new Color(255, 255, 255, 255);
+        }
+
         Direction = movment();
-        base.Update(deltaTime);
+        base.Update(deltaTime, scene);
         CheckEdges();
 
         if (Keyboard.IsKeyPressed(Keyboard.Key.Space) )
         {
             if (!keyPressed)
             {
-                Console.WriteLine("test");
-
                 shots = 2;
                 keyPressed = true;
             }
         }
         else keyPressed = false;
+        shoot();
         
-        if (shots == 2)
+        // funny BeyBlade
+        if (Keyboard.IsKeyPressed(Keyboard.Key.B))
         {
-            Scene.Events.PublishShot(Direction, Position + new Vector2f(25, -30), true);
-            shots--;
-        }
-        else if (shots == 1)
-        {
-            Scene.Events.PublishShot(Direction, Position + new Vector2f(-25, -30), true);
-            shots--;
+            sprite.Rotation += 1;
         }
     }
 
@@ -77,6 +93,20 @@ public class Player : Entity
 
     private void shoot()
     {
-        
+        if (shots == 2)
+        {
+            Scene.Events.PublishShot(Direction, Position + new Vector2f(25, -30), true);
+            shots--;
+        }
+        else if (shots == 1)
+        {
+            Scene.Events.PublishShot(Direction, Position + new Vector2f(-25, -30), true);
+            shots--;
+        }
+    }
+
+    private void OnPlayerHit()
+    {
+        invincibleTimer = 3;
     }
 }
