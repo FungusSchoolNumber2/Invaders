@@ -6,16 +6,16 @@ namespace Invaders
 {
     class Program
     {
-        public static uint windowW = 450;
-        public static uint windowH = 900;
+        public static uint windowW = 675;
+        public static uint windowH = 1350;
         static void Main(string[] args)
         {
-            using (var window = new RenderWindow(new VideoMode(windowW, windowH), "Invaders"))
+            using (var window = new RenderWindow(new VideoMode(450, 900), "Invaders"))
             {
                 window.Closed += (o, e) => window.Close();
                 Scene scene = new();
                 Clock clock = new Clock();
-                //window.SetView(new View(new FloatRect(18, 0, 414, 450)));
+                window.SetView(new View(new FloatRect(0, 0, windowW, windowH)));
                 
                 while (window.IsOpen)
                 {

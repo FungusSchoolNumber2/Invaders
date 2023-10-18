@@ -5,11 +5,13 @@ namespace Invaders;
 
 public class Player : Entity
 {
+    private bool keyPressed;
+    private int shots;
     public Player() : base("spaceShips_001")
     {
         sprite.Rotation = 180;
         sprite.Origin = new Vector2f(53, 40);
-        speed = 200;
+        speed = 400;
         Position = new Vector2f(Program.windowW / 2, Program.windowH - 100);
     }
 
@@ -18,6 +20,29 @@ public class Player : Entity
         Direction = movment();
         base.Update(deltaTime);
         CheckEdges();
+
+        if (Keyboard.IsKeyPressed(Keyboard.Key.Space) )
+        {
+            if (!keyPressed)
+            {
+                Console.WriteLine("test");
+
+                shots = 2;
+                keyPressed = true;
+            }
+        }
+        else keyPressed = false;
+        
+        if (shots == 2)
+        {
+            Scene.Events.PublishShot(Direction, Position + new Vector2f(25, -30), true);
+            shots--;
+        }
+        else if (shots == 1)
+        {
+            Scene.Events.PublishShot(Direction, Position + new Vector2f(-25, -30), true);
+            shots--;
+        }
     }
 
     private Vector2f movment()
@@ -48,5 +73,10 @@ public class Player : Entity
         if (Position.X <= 53) Position = new Vector2f(53 , Position.Y);
         if (Position.Y >= Program.windowH - 40) Position = new Vector2f(Position.X , Program.windowH - 40);
         if (Position.Y <= 40) Position = new Vector2f(Position.X , 40);    
+    }
+
+    private void shoot()
+    {
+        
     }
 }
