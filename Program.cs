@@ -2,9 +2,6 @@
 using SFML.System;
 using SFML.Window;
 
-
-
-
 namespace Invaders
 {
     class Program
@@ -19,8 +16,9 @@ namespace Invaders
                 Scene scene = new();
                 Clock clock = new Clock();
                 window.SetView(new View(new FloatRect(0, 0, windowW, windowH)));
-                float test = 1;
-                int test1 = 0;
+                // Display FPS
+                /*float test = 1;
+                int test1 = 0;*/
                 while (window.IsOpen)
                 {
                     window.DispatchEvents();
@@ -32,22 +30,17 @@ namespace Invaders
                     scene.RenderAll(window);
                     window.Display();
                     
-                    
-                    test -= deltaTime;
+                    // Display FPS
+                    /*test -= deltaTime;
                     test1++;
                     if (test <= 0)
                     {
                         Console.WriteLine(test1);
                         test = 1;
                         test1 = 0;
-                    }
+                    }*/
                 }
             }
-        }
-
-        public static Vector2f multiply(Vector2f vector1, Vector2f vector2)
-        {
-            return new Vector2f(vector1.X * vector2.X, vector1.Y * vector2.Y);
         }
     }
 }

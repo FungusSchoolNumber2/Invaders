@@ -1,8 +1,7 @@
 ﻿using SFML.Graphics;
 namespace Invaders;
 
-public class AssetsManager
-{
+public class AssetsManager {
     private readonly Dictionary<string, Texture> textures;
     private readonly Dictionary<string, Font> fonts;
 

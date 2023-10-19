@@ -9,12 +9,11 @@ public class Entity
     public bool Dead;
     protected float speed;
     protected Sprite sprite;
-    private string textureName;
+    
 
     protected Entity(string textureName)
     {
         sprite = new Sprite();
-        this.textureName = textureName;
         sprite.Texture = Scene.Assets.LoadTexture(textureName);
         Dead = false;
     }

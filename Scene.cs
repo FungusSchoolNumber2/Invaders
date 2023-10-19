@@ -55,6 +55,7 @@ public class Scene
     {
       entity.Render(target);
     }
+    
   }
   
   public IEnumerable<Entity> FindIntersects(FloatRect bounds)
@@ -96,7 +97,7 @@ public class Scene
           Position = new Vector2f(new Random().Next((int)Program.windowW), -new Random().Next(150, 300))
         });
 
-        timer = MathF.Max(difficulty, 0.5f);
+        timer = MathF.Max(difficulty, 0.3f);
         difficulty *= 0.9f;
       }
     }
@@ -116,11 +117,11 @@ public class Scene
     entities.Add(gui);
   }
 
-  private void OnTimeToBlow(Vector2f positon)
+  private void OnTimeToBlow(Vector2f position)
   {
     entities.Add(new Explosion()
     {
-      Position = positon
+      Position = position
     });
   }
 }

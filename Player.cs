@@ -8,7 +8,8 @@ public class Player : Entity
 {
     private bool keyPressed;
     private int shots;
-    private float invincibleTimer ;
+    private float invincibleTimer;
+    private float shotTimer;
 
     public Player() : base("spaceShips_001")
     {
@@ -17,6 +18,7 @@ public class Player : Entity
         speed = 400;
         Position = new Vector2f(Program.windowW / 2, Program.windowH - 100);
         Scene.Events.PlayerHit += OnPlayerHit;
+        shotTimer = 0;
     }
 
     public bool Invincible
@@ -39,20 +41,22 @@ public class Player : Entity
             sprite.Color = new Color(255, 255, 255, 255);
         }
 
-        Direction = movment();
+        Direction = Movment();
         base.Update(deltaTime, scene);
         CheckEdges();
 
         if (Keyboard.IsKeyPressed(Keyboard.Key.Space) )
         {
-            if (!keyPressed)
+            if (!keyPressed && shotTimer <= 0)
             {
                 shots = 2;
                 keyPressed = true;
+                shotTimer = 0.5f;
             }
         }
         else keyPressed = false;
-        shoot();
+        Shoot();
+        shotTimer -= deltaTime;
         
         // funny BeyBlade
         if (Keyboard.IsKeyPressed(Keyboard.Key.B))
@@ -61,7 +65,7 @@ public class Player : Entity
         }
     }
 
-    private Vector2f movment()
+    private Vector2f Movment()
     {
         Vector2f temp1 = new Vector2f();
         Vector2f temp2 = new Vector2f();
@@ -91,7 +95,7 @@ public class Player : Entity
         if (Position.Y <= 40) Position = new Vector2f(Position.X , 40);    
     }
 
-    private void shoot()
+    private void Shoot()
     {
         if (shots == 2)
         {

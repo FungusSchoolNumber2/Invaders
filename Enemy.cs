@@ -4,7 +4,6 @@ namespace Invaders;
 
 public class Enemy : Entity
 {
-    private Vector2f Size = new Vector2f(126, 108);
     private float timer;
     public Enemy() : base("spaceShips_004")
     {
@@ -13,7 +12,6 @@ public class Enemy : Entity
         sprite.Scale *= 0.75f;
         sprite.Origin = new Vector2f(63, 54);
         //sprite.Origin = Program.multiply(new Vector2f(63, 54), sprite.Scale);
-        Size = Program.multiply(Size, sprite.Scale);
         speed = 200;
         Direction = new Vector2f(1, 1);
         timer = 2;
@@ -23,7 +21,7 @@ public class Enemy : Entity
     {
         WallCheck();
         base.Update(deltaTime, scene);
-        firing(deltaTime);
+        Firing(deltaTime);
     }
 
     public override void Render(RenderTarget target)
@@ -64,7 +62,7 @@ public class Enemy : Entity
         if (Position.Y > Program.windowH + 50) Position = new Vector2f(Position.X, -100);
     }
 
-    private void firing(float deltaTime)
+    private void Firing(float deltaTime)
     {
         timer -= deltaTime;
 

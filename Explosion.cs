@@ -9,7 +9,7 @@ public class Explosion : Entity
     public Explosion() : base("Explosion")
     {
         timer = 0;
-        Console.WriteLine("tte");
+        sprite.TextureRect = new IntRect(new Vector2i(0, 0), new Vector2i(96, 91));
     }
 
     public override void Update(float deltaTime, Scene scene)
